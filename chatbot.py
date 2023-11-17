@@ -1,57 +1,14 @@
+# chatbot.py
 import difflib
 import re
+from data import cargar_datos, guardar_datos, aprender_respuesta
 
-Cuestions = {
-    "hola": "¡Holi! ¿En qué puedo ayudarte?",
-    "bye": "Bye te espero pronto!",
-    "¿cómo estás?": "Estoy bien, gracias por preguntar.",
-    "default": "No entiendo lo que estás diciendo. ¿Puedes reformular tu pregunta?",
-    "quien te creo": "Mi creadora es Keisy Vallejos Carrera. ¿Interesante no crees?",
-    "si": "excelente",
-}
-
-Cuestions_ban = {
-    "serrano": "de racismo",
-    "tonto": "de insulto",
-    "imbécil": "de insulto",
-    "estúpido": "de insulto",
-    "sin papá": "de insulto",
-    "malparido": "de insulto",
-    "idiota": "de insulto",
-    "cabron": "de insulto",
-    "indigena": "de insulto",
-    "paisano": "de insulto",
-    "maldito ": "de insulto",
-    "huanaco": "de insulto",
-    "nigger": "de insulto",
-    "prieto": "de insulto",
-    "gordo": "de insulto",
-    "pou": "de insulto",
-    "negra": "de insulto",
-    "moreno": "de insulto",
-    "gay": "de insulto",
-    "homosexual": "de insulto",
-    "tonta": "de insulto",
-    "tonto": "de insulto",
-    "joder": "de insulto",
-    "silencio negro": "de racismo",
-    "negro": "de racismo",
-    "cholo tonto": "de discriminación",
-    "cholo": "de discriminación",
-    "basura": "de contenido ofensivo",
-    "tarado": "de comportamiento irrespetuoso",
-    "largate": "de ofensa",
-    "pobre": "de lenguaje humillante",
-}
-
-Neuro ={
-    "Me sieto triste": "Ohh en que puedo ayudarte, dejame que soy un chaat bot especializado en ayudar a los humanos con sus emociones",
-    "Mal":"Sabes, sentirse mal es normal eres humano y las emociones no son malas ",
-    "Que puedo hacer": "Experimentar tristeza es algo normal, Así que si te apetece llorar, hazlo, es sanador y te vas a sentir más aliviado ¿Sientes Ansiedad?",
-    "ok":"Te brindare tecnicas para la ansiedad : Respiración: tomar aire y llevarlo a nuestro diafragma, al vientre, sin hinchar el pecho",
-    "Estoy enojado":"oh calma, dahite va un chiste : ¿como se dice papel en japones ?",
-    "nose":"Sacamoko jaja , espero haberte ayudado"
-}
+# Carga inicial de datos
+data = cargar_datos()
+Cuestions = data.get("Cuestions", {})
+Cuestions_ban = data.get("Cuestions_ban", {})
+Neuro = data.get("Neuro", {})
+Learning = data.get("Learning", {})
 
 def process_input(usuario_key):
     usuario_key = usuario_key.lower()
@@ -90,6 +47,13 @@ if __name__ == "__main__":
         usuario_key = input("Tú: ")
 
         if usuario_key.lower() == "bye":
+            # Guardar datos antes de salir
+            data["Cuestions"] = Cuestions
+            data["Cuestions_ban"] = Cuestions_ban
+            data["Neuro"] = Neuro
+            data["Learning"] = Learning
+            guardar_datos(data)
+
             print("Chatbot: Bye te espero pronto!")
             break
 
@@ -102,10 +66,12 @@ if __name__ == "__main__":
             if respuesta_neuro:
                 resultado = respuesta_neuro
                 print("Chatbot: " + resultado)
-
-            if es_operacion_matematica(usuario_key):
+            elif es_operacion_matematica(usuario_key):
                 resultado = eval(usuario_key)
                 print("Chatbot: El resultado es {}".format(resultado))
             else:
                 respuesta = process_input(usuario_key)
-                print("Chatbot: " + respuesta)
+                if respuesta == "No entiendo lo que estás diciendo. ¿Puedes reformular tu pregunta?":
+                    aprender_respuesta(usuario_key, Learning, data)
+                else:
+                    print("Chatbot: " + respuesta)
