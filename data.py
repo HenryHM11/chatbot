@@ -21,6 +21,5 @@ def aprender_respuesta(usuario_key, Learning, data):
     respuesta_aprendida = input(f"Lo siento, no sé la respuesta. ¿Cuál debería ser la respuesta a '{usuario_key}'? ")
     Learning[usuario_key.lower()] = respuesta_aprendida
     guardar_datos(data)
-    
-    # Devolver la respuesta aprendida y un indicador
+
     return respuesta_aprendida, True

@@ -1,8 +1,8 @@
-# app.py
+
 from flask import Flask, render_template, request, jsonify
 from chatbot import process_input, process_input_neuro, process_input_ban, es_operacion_matematica, Learning
 from data import cargar_datos, guardar_datos
-from chatbot import Learning
+
 
 app = Flask(__name__)
 
@@ -29,7 +29,6 @@ def get_response():
         else:
             bot_response = process_input(user_message)
 
-    # Agregar mensaje de depuración
     print(f"Bot Response: {bot_response}")
 
     return jsonify({'bot_response': bot_response})

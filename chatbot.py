@@ -1,4 +1,3 @@
-# chatbot.py
 
 import difflib
 import re
@@ -23,7 +22,7 @@ def process_input(usuario_key):
         respuesta = Cuestions[mejor_mind[0]]
     else:
         respuesta = "No entiendo lo que estás diciendo. ¿Puedes reformular tu pregunta?"
-        # Retorna el mensaje de aprendizaje
+
         return f"Aprendizaje: {usuario_key}"
 
     return respuesta
