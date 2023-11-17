@@ -9,7 +9,6 @@ def cargar_datos():
     Cuestions_ban = data.get("Cuestions_ban", {})
     Neuro = data.get("Neuro", {})
     Learning = data.get("Learning", {})
-
     return Cuestions, Cuestions_ban, Neuro, Learning
 
 def guardar_datos(data):
@@ -20,4 +19,4 @@ def aprender_respuesta(usuario_key, Learning, data):
     respuesta_aprendida = input(f"Lo siento, no sé la respuesta. ¿Cuál debería ser la respuesta a '{usuario_key}'? ")
     Learning[usuario_key.lower()] = respuesta_aprendida
     guardar_datos(data)
-
+    

@@ -2,7 +2,7 @@
     "Cuestions": {
         "hola": "Holi En que puedo ayudarte",
         "bye": "Bye te espero pronto!",
-        "¿como estas?": "Estoy bien, gracias por preguntar.",
+        "¿cómo estás?": "Estoy bien, gracias por preguntar.",
         "default": "No entiendo lo que estás diciendo. ¿Puedes reformular tu pregunta?",
         "quien te creo": "Mi creadora es Keisy Vallejos Carrera. ¿Interesante no crees?",
         "si": "excelente"
@@ -10,9 +10,9 @@
     "Cuestions_ban": {
         "serrano": "de racismo",
     "tonto": "de insulto",
-    "imbecil": "de insulto",
+    "imbécil": "de insulto",
     "estúpido": "de insulto",
-    "sin papa": "de insulto",
+    "sin papá": "de insulto",
     "malparido": "de insulto",
     "idiota": "de insulto",
     "cabron": "de insulto",
