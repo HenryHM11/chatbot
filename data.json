@@ -2,7 +2,7 @@
     "Cuestions": {
         "hola": "Holi En que puedo ayudarte",
         "bye": "Bye te espero pronto!",
-        "¿cómo estás?": "Estoy bien, gracias por preguntar.",
+        "¿como estás?": "Estoy bien, gracias por preguntar.",
         "default": "No entiendo lo que estás diciendo. ¿Puedes reformular tu pregunta?",
         "quien te creo": "Mi creadora es Keisy Vallejos Carrera. ¿Interesante no crees?",
         "si": "excelente"
@@ -48,6 +48,6 @@
         "nose":"Sacamoko jaja , espero haberte ayudado"
     },
     "Learning": {
-
+        "mama":"mamamamamama"
     }  
 }

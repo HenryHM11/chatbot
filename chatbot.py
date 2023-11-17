@@ -1,27 +1,38 @@
 # chatbot.py
+
 import difflib
 import re
 from data import cargar_datos, guardar_datos, aprender_respuesta
 
-# Carga inicial de datos
+# Carga de datos
 data = cargar_datos()
+print(type(data))
+
 Cuestions = data.get("Cuestions", {})
 Cuestions_ban = data.get("Cuestions_ban", {})
 Neuro = data.get("Neuro", {})
 Learning = data.get("Learning", {})
 
+
+
 def process_input(usuario_key):
     usuario_key = usuario_key.lower()
     mejor_mind = difflib.get_close_matches(usuario_key, Cuestions.keys())
+    
     if mejor_mind:
         respuesta = Cuestions[mejor_mind[0]]
     else:
         respuesta = "No entiendo lo que estás diciendo. ¿Puedes reformular tu pregunta?"
+        # Retorna el mensaje de aprendizaje
+        return f"Aprendizaje: {usuario_key}"
+
     return respuesta
+
 
 def process_input_neuro(usuario_key):
     usuario_key = usuario_key.lower()
     mejor_mind = difflib.get_close_matches(usuario_key, Neuro.keys())
+    
     if mejor_mind:
         respuesta = Neuro[mejor_mind[0]]
         return respuesta
@@ -29,6 +40,7 @@ def process_input_neuro(usuario_key):
 
 def process_input_ban(usuario_key):
     usuario_key = usuario_key.lower()
+    
     for palabra_ban in Cuestions_ban:
         if palabra_ban in usuario_key:
             asteriscos = palabra_ban[0] + '*' * (len(palabra_ban)-1)
@@ -40,7 +52,7 @@ def es_operacion_matematica(usuario_key):
     patron_operacion = re.compile(r'\b(\d+\s*[\+\-\*/]\s*\d+)\b')
     return bool(patron_operacion.search(usuario_key))
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     print("Chatbot: ¡Hola! Soy kiti un chatbot. Puedes escribir 'Bye' para salir.")
 
     while True:
@@ -71,7 +83,4 @@ if __name__ == "__main__":
                 print("Chatbot: El resultado es {}".format(resultado))
             else:
                 respuesta = process_input(usuario_key)
-                if respuesta == "No entiendo lo que estás diciendo. ¿Puedes reformular tu pregunta?":
-                    aprender_respuesta(usuario_key, Learning, data)
-                else:
-                    print("Chatbot: " + respuesta)
+                print("Chatbot: " + respuesta)

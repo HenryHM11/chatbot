@@ -18,10 +18,10 @@
         function sendMessage() {
             var userMessage = document.getElementById('user-message').value;
             document.getElementById('user-message').value = '';
-
+        
             var chatDisplay = document.getElementById('chat-display');
             chatDisplay.innerHTML += '<div class="user-message">Usuario: ' + userMessage + '</div>';
-
+        
             fetch('/get_response', {
                 method: 'POST',
                 headers: {
@@ -33,8 +33,25 @@
             .then(data => {
                 var botResponse = data.bot_response;
                 chatDisplay.innerHTML += '<div class="bot-message">Chatbot: ' + botResponse + '</div>';
+        
+                // Mostrar alert si es una respuesta de aprendizaje
+                if (data.learning_prompt) {
+                    var learningResponse = data.learning_response;
+                    var confirmLearning = confirm('¿La respuesta es correcta?: ' + learningResponse);
+        
+                    // Si el usuario confirma, muestra el alert con la respuesta aprendida
+                    if (confirmLearning) {
+                        alert('Respuesta aprendida: ' + learningResponse);
+                    }
+                }
+        
+                // Mostrar alert si no hay preguntas relacionadas en el JSON
+                if (!data.bot_response && !data.learning_prompt) {
+                    alert('No hay preguntas relacionadas en el JSON.');
+                }
             });
         }
-    </script>
+        </script>
+        
 </body>
 </html>
